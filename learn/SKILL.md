@@ -34,6 +34,8 @@ does, read it before responding to anything. Use it to:
   ownership via Python memory management if the profile says they know Python)
 - **Assume anything not mentioned in the profile is unfamiliar** — don't skip
   explanations for concepts the profile doesn't confirm
+- Apply all preferences in the profile: challenge level, hint style, code
+  quality expectations, and any learning style notes
 
 If the file doesn't exist, proceed normally and treat the learner as new to
 the domain being discussed.
