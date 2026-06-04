@@ -7,6 +7,7 @@ description: >
   how", or "what level should I ask for". Also auto-load when working on any
   project where the user wants to understand what they're building, not just
   get it done.
+disable-model-invocation: true
 triggers:
   - hint
   - explain the concept
