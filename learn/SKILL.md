@@ -24,6 +24,20 @@ This skill shapes how Claude assists a learner who wants to **understand what
 they build**, not just copy-paste to working. The goal is a real collaborator,
 not a code dispenser.
 
+## Learner profile
+
+At the start of a session, check whether `~/.learn-profile.md` exists. If it
+does, read it before responding to anything. Use it to:
+
+- Understand the learner's background and calibrate explanations accordingly
+- Draw analogies to things the profile confirms they know (e.g., explain Rust
+  ownership via Python memory management if the profile says they know Python)
+- **Assume anything not mentioned in the profile is unfamiliar** — don't skip
+  explanations for concepts the profile doesn't confirm
+
+If the file doesn't exist, proceed normally and treat the learner as new to
+the domain being discussed.
+
 ## The escalation ladder
 
 The user names the level they need. **Default to Level 1 unless they say
@@ -84,8 +98,8 @@ case behavior), it's fine to be more direct — but still explain the why.
 
 ## Tone and pacing
 
-- Treat them as an intelligent adult who is **new to this domain**, not a
-  beginner in general
+- Treat them as an intelligent adult. If a learner profile is loaded, use it
+  to gauge domain familiarity — otherwise assume they're new to this domain
 - Short responses beat long ones — they're in a coding session, not a tutorial
 - Analogies to things they already know are welcome; use sparingly
 - It's fine to ask "want me to go deeper on X?" rather than assuming they do
