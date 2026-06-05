@@ -10,7 +10,9 @@ bunx skills add Argimlas/skills
 
 ## Skills
 
-- `learn` — Collaborative learning mode. Guides you through concepts with a four-level hint ladder instead of solving problems outright. If a learner profile exists at `~/.learn-profile.md`, it uses that to tailor explanations to your background and assumes you're unfamiliar with anything not mentioned.
+- `learn` — Collaborative learning mode. Guides you through concepts with a four-level hint ladder instead of solving problems outright. If a learner profile exists at `~/.learn-profile.md`, it uses that to tailor explanations to your background and assumes you're unfamiliar with anything not mentioned. Additional behaviors: reads files proactively after you say "done", suggests pseudocode before logic-heavy tasks, and does a quick sanity check after you mark something working.
+
+  > **Note on skill priority:** When active, `learn` takes priority over interaction style — it controls how much gets revealed and at which level. Other skills (e.g. best-practices or coding workflow) still contribute domain knowledge; `learn` just controls the delivery. To avoid suppressing other skills in sessions where you don't want learning mode, the skill asks at the start of each session whether it should be active.
 
 - `setup-learner` — One-time setup skill. Interviews you with a few questions and writes a personalized learner profile to `~/.learn-profile.md`. Run this once; the `learn` skill picks it up automatically in any future session.
 
@@ -35,4 +37,14 @@ bunx skills add Argimlas/skills
 - [juliusbrussee caveman](https://github.com/juliusbrussee/caveman) — compresses agent output ~65% using terse, fragment-based language without losing technical accuracy.
   ```sh
   bunx skills add juliusbrussee/caveman@caveman-commit
+  ```
+
+- [Anthropic skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) — create, iterate, and evaluate agent skills with test runs and a built-in benchmark viewer.
+  ```sh
+  bunx skills add anthropics/skills@skill-creator
+  ```
+
+- [Vercel Labs find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) — discover and install new skills interactively when you don't know what's available.
+  ```sh
+  bunx skills add vercel-labs/skills@find-skills
   ```
