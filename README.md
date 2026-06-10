@@ -22,6 +22,17 @@ bunx skills add Argimlas/skills
 
 > **Note:** `~/.learn-profile.md` lives in your home directory and is never part of any project. Don't copy it into repos or commit it — it may contain personal context you wouldn't want to share.
 
+### Legal skills
+
+> [!WARNING]
+> These skills are tailored to **German law** (DSGVO, BDSG, DDG, TDDDG, MStV) and are not suitable for other jurisdictions without expert review. They generate draft legal documents based on automated code analysis and **do not constitute legal advice**. Any output must be reviewed by a qualified lawyer or data protection officer before publication. Use for testing and prototyping only.
+
+- `datenschutz` — Scans the codebase for data processing activities (cookies, analytics, APIs, forms) and produces an Art. 13 DSGVO-compliant Datenschutzerklärung in German, plus an inline compliance report. Integrates into the project's existing layout without adding CSS.
+
+- `impressum` — Analyses the site's purpose, structure, and commercial nature to produce a minimal, correct Impressum under § 5 DDG and § 18 MStV. Flags outdated Impressums that still cite the replaced § 5 TMG.
+
+- `cookie-banner` — Categorises every cookie and tracking technology by legal necessity under § 25 TDDDG and produces short, readable cookie-consent banner content in English. Integrates into the project's existing components without adding styles.
+
 ## Recommended skills
 
 - [ValentinKolb skills](https://github.com/ValentinKolb/skills) — disciplined coding workflow and concise documentation skills.
