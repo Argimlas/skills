@@ -99,6 +99,15 @@ Infer from code and config. Ask only what cannot be found.
   (`cookieconsent`, `tarteaucitron`, `Osano`, `CookieFirst`, `Cookiebot`, …)
 - **Existing cookie policy or privacy notice** — read it if present; the
   banner must be consistent with it
+- **Consent expiry period** — how long the consent record stays valid before
+  the banner reappears. If Step 2 finds an existing consent cookie with a
+  duration already set, reuse it and skip the question. Otherwise: German law
+  sets no fixed number here — the DSK Orientierungshilfe calls for a
+  case-by-case assessment tied to the storage-limitation principle (Art. 5
+  Abs. 1 lit. e DSGVO), not a statutory figure. Propose **12 months** as the
+  default in chat — it matches EDPB guidance and sits inside the 6–13 month
+  range other EU regulators (e.g. CNIL) accept — and ask the user to confirm
+  it or name a different period before you write the consent cookie in Step 4.
 
 ---
 
@@ -374,8 +383,10 @@ page load. Use a minimal, strictly necessary record:
 - **Key:** `cookieConsent` (or the site's existing key if found in Step 2)
 - **Value:** JSON `{ essential: true, analytics: false, marketing: false, … }`
   — one boolean per category found in Step 2
-- **Storage:** first-party cookie, `max-age=31536000` (1 year), `SameSite=Strict`,
-  `Secure` if the site is HTTPS — no tracking value, no personal data
+- **Storage:** first-party cookie, `max-age` set to the expiry period
+  confirmed in Step 1 (`max-age=31536000` for the 12-month default),
+  `SameSite=Strict`, `Secure` if the site is HTTPS — no tracking value, no
+  personal data
 - This cookie is strictly necessary (records consent state) — do not list it as
   non-essential and do not delete it on withdrawal
 
@@ -461,6 +472,7 @@ Close by repeating, verbatim, the notice you gave in chat at the start (see
 - [ ] No technical cookie details in user-visible text
 - [ ] `clearConsentData()` function produced, covering cookies + localStorage + sessionStorage per category from Step 2
 - [ ] Consent preference record (strictly necessary cookie) produced with correct flags
+- [ ] Consent expiry period proposed (12-month default) and confirmed with the user in Step 1, and that value used for the consent cookie's `max-age`
 - [ ] Persistent "Cookie settings" link / entry point to preferences included
 - [ ] HttpOnly server-side cookies flagged in Uncertainties if present; server-endpoint deletion noted
 - [ ] Third-party-domain cookies that cannot be client-deleted flagged per vendor in Uncertainties

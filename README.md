@@ -31,7 +31,7 @@ bunx skills add Argimlas/skills
 
 - `impressum` — Analyses the site's purpose, structure, and commercial nature to produce a minimal, correct Impressum under § 5 DDG and § 18 MStV. Flags outdated Impressums that still cite the replaced § 5 TMG.
 
-- `cookie-banner` — Categorises every cookie and tracking technology by legal necessity under § 25 TDDDG and produces short, easy-to-read cookie-consent banner content in English with self-explanatory, category-specific buttons (e.g. "I accept analytics cookies"). Adds a responsive, centered banner layout while inheriting the project's existing colors and button styles.
+- `cookie-banner` — Categorises every cookie and tracking technology by legal necessity under § 25 TDDDG and produces short, easy-to-read cookie-consent banner content in English with self-explanatory, category-specific buttons (e.g. "I accept analytics cookies"). Proposes a consent-expiry period (12 months by default, per DSK guidance) and confirms it with you before writing the consent cookie. Adds a responsive, centered banner layout while inheriting the project's existing colors and button styles.
 
 ## Recommended skills
 
