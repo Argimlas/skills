@@ -31,7 +31,7 @@ bunx skills add Argimlas/skills
 
 - `impressum` — Analyses the site's purpose, structure, and commercial nature to produce a minimal, correct Impressum under § 5 DDG and § 18 MStV. Flags outdated Impressums that still cite the replaced § 5 TMG.
 
-- `cookie-banner` — Categorises every cookie and tracking technology by legal necessity under § 25 TDDDG and produces short, readable cookie-consent banner content in English. Integrates into the project's existing components without adding styles.
+- `cookie-banner` — Categorises every cookie and tracking technology by legal necessity under § 25 TDDDG and produces short, easy-to-read cookie-consent banner content in English with self-explanatory, category-specific buttons (e.g. "I accept analytics cookies"). Adds a responsive, centered banner layout while inheriting the project's existing colors and button styles.
 
 ## Recommended skills
 
@@ -58,4 +58,9 @@ bunx skills add Argimlas/skills
 - [Vercel Labs find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) — discover and install new skills interactively when you don't know what's available.
   ```sh
   bunx skills add vercel-labs/skills@find-skills
+  ```
+
+- [Matt Pocock code-review](https://github.com/mattpocock/skills) — reviews code changes for bugs, style, and cleanup opportunities.
+  ```sh
+  bunx skills add mattpocock/skills@code-review
   ```

@@ -24,19 +24,41 @@ project actually does — nothing more.
 
 ---
 
-## Integration & styling — never change the site's look
+## Integration & styling — layout is yours, look is theirs
 
 The user points you at a project and a place to add the banner ("add a cookie
-banner here"). Your job is to add the **legal content and consent logic** into
-their existing framework — not to impose a design.
+banner here"). Your job is to add the **legal content, layout, and consent
+logic**. Split the responsibility cleanly: the banner's *position, size, and
+responsiveness* are this skill's to own; its *colors, typography, and button
+shapes* belong to the project.
 
-- Reuse the site's existing components, classes, and design tokens. If the site
-  has a `<Button>` component or a `.btn` class, use it. Match surrounding code.
-- Add **no** new CSS, colors, fonts, spacing, or layout. Never emit a `<style>`
-  block or a stylesheet. Everything visual is inherited from the site.
-- Equal prominence (a legal requirement) is met by giving Accept and Reject the
-  **same existing button style** — never primary-vs-ghost or coloured-vs-grey.
-  This is about reusing one of the site's styles for both, not adding your own.
+**Look — inherit, never invent:**
+- Reuse the site's existing components, classes, and design tokens for color,
+  font, border-radius, and shadow. If the site has a `<Button>` component or a
+  `.btn` class, use it for every button in the banner.
+- Add no new colors, fonts, or border styles. Everything visual comes from the
+  site's own design system.
+- **Equal prominence** (a legal requirement, Art. 7 DSGVO "freely given") is met
+  by giving Accept and Reject the same existing button style — never
+  primary-vs-ghost or coloured-vs-grey. This rule governs every button
+  instruction later in this skill; do not restate its rationale elsewhere, just
+  apply it.
+
+**Layout — own it, make it responsive:**
+- The banner is a centered, width-capped bar or panel — never edge-to-edge on
+  wide screens.
+  - Desktop / tablet (≥640px): centered horizontally, `max-width` in the
+    560–720px range (match the site's existing container/modal width if one
+    exists), fixed or sticky near the bottom of the viewport, comfortable
+    padding.
+  - Mobile (<640px): full width minus small side margins (e.g. `1rem`);
+    buttons stack vertically if a row of them no longer fits; add
+    `env(safe-area-inset-bottom)` padding so the banner clears device home-bars.
+- This layout CSS (`position`, `max-width`, `margin`, `padding`, `display:
+  flex`/`grid`, media queries) is the one exception to "no new CSS" — write it
+  in a small scoped `<style>` block or CSS module. Never put color,
+  font-family, or border styling in it; those stay inherited from the site's
+  components.
 - If you cannot tell how to mount the banner in the site's framework, do not
   guess: output the content with precise placement instructions and flag it in
   the Uncertainties report.
@@ -200,12 +222,25 @@ Classify every finding:
 
 ## Step 4 — Draft the cookie banner content
 
-### Guiding principle: minimum viable banner
+### Guiding principle: minimum viable banner, in easy language
 
-A good cookie banner is **short**. Users must be able to read and decide in
-under 10 seconds. The full legal text belongs in the privacy policy — not the
-banner. The banner needs: what you're doing (one sentence), why (one clause),
-and clear equal-prominence buttons. Nothing else.
+A good cookie banner is **short** and **easy to understand on first read**.
+Art. 12 Abs. 1 DSGVO requires consent information in a "concise, transparent,
+intelligible and easily accessible form, using clear and plain language" — this
+is a legal requirement, not a style preference. Users must be able to read and
+decide in under 10 seconds. The full legal text belongs in the privacy policy —
+not the banner. The banner needs: what you're doing (one sentence), why (one
+clause), and clear equal-prominence buttons. Nothing else.
+
+**Easy-language rules, apply to every sentence you write:**
+- Max ~15 words per sentence, one idea per sentence — split anything longer.
+- Everyday words over legal or technical ones: "we save" not "processing takes
+  place"; "so we can show ads" not "for marketing purposes".
+- Active voice, direct address ("we" / "you") — never passive constructions
+  that hide who is doing what.
+- If a technical term is unavoidable (e.g. "cookies", a category name), it
+  stays — but never stack it with a second unexplained term in the same
+  sentence.
 
 Do **not** include in the banner:
 - Bullet lists of individual cookies
@@ -219,10 +254,13 @@ a consent banner. State this clearly and explain why.
 
 ### Output format
 
-Match the project's tech stack and reuse its existing components/classes (see
-*Integration & styling* above — add no new CSS):
-- Plain HTML → HTML snippet with minimal inline structure, no styling of its own
-- React / Vue / Svelte → component in the project's style, using its primitives
+Match the project's tech stack and reuse its existing components/classes for
+color, font, and button style (see *Integration & styling* above — layout CSS
+is yours to add, visual CSS is inherited):
+- Plain HTML → HTML snippet with the scoped layout `<style>` block from
+  *Integration & styling*, no color/font styling of its own
+- React / Vue / Svelte → component in the project's style, using its
+  primitives for buttons/toggles, with the layout CSS as a scoped style/module
 - Static / Markdown → plain HTML snippet
 - Unclear how to mount it → output the content with placement instructions and
   flag it in the Uncertainties report rather than guessing
@@ -242,16 +280,20 @@ and their purpose. No definition of cookies, no legalese.
   use these technologies to process personal information. More information can
   be found in our privacy policy..."
 
-**3. Buttons** — use **first-person (Ich-Form)** phrasing. This formulation
-makes the user's affirmative act explicit, reducing ambiguity about consent
-(recommended by German supervisory authority guidance). All buttons must have
-equal visual weight — achieve this by applying the **same existing button style
-from the site** to every button, never a more prominent style for Accept.
+**3. Buttons** — use **first-person (Ich-Form)** phrasing, and make every label
+**self-explanatory**: name what is being accepted or refused instead of a bare
+verb. A user reading only the button text, with no surrounding context, must
+know exactly what they're agreeing to (model: the EU Parliament's cookie
+banner, which uses "I accept analytics cookies" / "I refuse analytics
+cookies" rather than a generic "Accept" / "Decline"). Never ship a bare
+`I decline` or `Accept` — always attach the object. Equal visual weight is
+required for every button (see *Integration & styling* above — reuse the same
+existing button style, never a more prominent one for Accept).
 
 | Situation | Accept label | Reject label | Customize |
 |-----------|-------------|--------------|-----------|
-| Any non-essential cookies | `I accept all cookies` | `I only accept essential cookies` | `Customize` (if 2+ categories) |
-| Only one non-essential category | `I accept all cookies` | `I decline` | — |
+| One non-essential category (e.g. only analytics) | `I accept analytics cookies` | `I refuse analytics cookies` | — |
+| 2+ non-essential categories | `I accept all cookies` | `I refuse all optional cookies` | `Customize my choice` |
 | No non-essential cookies | — no banner needed — | | |
 
 **4. Privacy policy link** — always include. Anchor text: `Privacy Policy`.
@@ -261,19 +303,23 @@ Placeholder: `[Privacy Policy URL]`.
 categories exist. Use the site's existing form controls (its checkbox/toggle
 component or a plain `<input type="checkbox">`); add no new control styling.
 Include:
-- One toggle per category
-- Category name + one-sentence description
+- One toggle per category, with a **visible and accessible label naming the
+  category** (e.g. "Analytics cookies" — never a bare unlabeled switch), plus
+  a one-sentence easy-language description of its purpose
 - Default state for non-essential toggles: **off**
 - Essential cookies toggle: always on, visually disabled, labeled
   "Always active"
-- A "Save preferences" button in Ich-Form: `Save my preferences`
+- A "Save preferences" button in Ich-Form: `Save my cookie choices`
 
 ### Style rules
 
-- Plain language; no legalese visible to users
+- Easy language throughout (see rules above); no legalese visible to users
 - Active voice, second person in body text ("you"), first person on buttons
-- Reject button is at least as prominent as Accept — reuse the site's existing
-  button style for both; add no styling of your own
+- Every button label names its object ("analytics cookies", "all cookies") —
+  never a bare "Accept" / "Decline"
+- Equal button prominence (see *Integration & styling* above)
+- Banner is centered and width-capped on wide screens, full-width with margins
+  and stacked buttons on mobile (see *Integration & styling* above)
 - No pre-ticked checkboxes anywhere
 - No asterisks or fine print inside the banner
 - `[Privacy Policy URL]` placeholder wherever the link appears
@@ -291,8 +337,8 @@ user's terminal equipment under the withdrawn consent.
 
 Alongside the banner, produce a `clearConsentData(categories)` function (or
 equivalent for the project's stack) that is called whenever the user declines
-or downgrades their consent — i.e. on the "I only accept essential cookies" /
-"I decline" button and on every "Save my preferences" action where a previously
+or downgrades their consent — i.e. on the "I refuse …" button (see Step 4
+buttons table) and on every "Save my cookie choices" action where a previously
 accepted category is toggled off.
 
 **Per-category cleanup must cover:**
@@ -387,11 +433,8 @@ Always flag:
 - "Cookieless" analytics tools that may still perform device fingerprinting
   (fingerprinting is covered by § 25 Abs. 1 TDDDG even without cookies)
 
-Close with:
-
-> **Notice:** This cookie banner was generated automatically based on a
-> codebase scan. It does not constitute legal advice and should be reviewed by
-> a lawyer before publishing.
+Close by repeating, verbatim, the notice you gave in chat at the start (see
+*Before you start*).
 
 ---
 
@@ -399,14 +442,21 @@ Close with:
 
 - [ ] Disclaimer and placeholder list in chat before the banner output
 - [ ] Jurisdiction confirmed, or flagged as uncertain before producing the banner
-- [ ] No new CSS / `<style>` block — banner reuses the site's existing styles
+- [ ] Only layout/positioning CSS added; color, font, and button styling reused
+      from the site's existing components
+- [ ] Banner is centered and width-capped on wide screens; full-width with
+      margins and safe-area padding, buttons stacking as needed, on mobile
 - [ ] Every cookie / storage access from Step 2 is categorised
 - [ ] Each non-essential item flagged as requiring consent
 - [ ] Reject button has equal prominence to Accept in the output code
 - [ ] No pre-ticked checkboxes in preferences centre
-- [ ] All buttons in first-person (Ich-Form)
+- [ ] All buttons in first-person (Ich-Form) and name their object (e.g.
+      "analytics cookies", "all cookies") — no bare "Accept" / "Decline"
+- [ ] Every sentence in the banner passes the easy-language rules (≤~15 words,
+      everyday vocabulary, active voice)
 - [ ] Privacy policy link with `[Privacy Policy URL]` placeholder present
-- [ ] Preferences centre included when 2+ non-essential categories exist
+- [ ] Preferences centre included when 2+ non-essential categories exist, with
+      each toggle visibly labeled by category name
 - [ ] Banner body is ≤ 3 sentences
 - [ ] No technical cookie details in user-visible text
 - [ ] `clearConsentData()` function produced, covering cookies + localStorage + sessionStorage per category from Step 2
