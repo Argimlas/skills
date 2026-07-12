@@ -18,9 +18,15 @@ bunx skills add Argimlas/skills
 
 > Run `/setup-learner` first, then use `/learn` as you code.
 
-> **Tip:** `learn` handles the teaching style but not code planning. Pair it with a coding workflow skill (e.g. `coding-workflow` from [ValentinKolb/skills](https://github.com/ValentinKolb/skills)) to get disciplined, well-structured code alongside the explanations.
+> **Tip:** `learn` handles the teaching style but not code planning. Pair it with a coding workflow skill — this repo's own `coding`, or [ValentinKolb/skills](https://github.com/ValentinKolb/skills)' `coding-workflow` — to get disciplined, well-structured code alongside the explanations. Use one or the other, not both.
 
 > **Note:** `~/.learn-profile.md` lives in your home directory and is never part of any project. Don't copy it into repos or commit it — it may contain personal context you wouldn't want to share.
+
+### Coding skills
+
+- `standards` — Coding standards and conventions: stack defaults (bun), KISS/YAGNI/DRY/Zen, patterns, comments, responsive UI, a starter security baseline, and commit-message convention. Model-invoked, so other skills (including `code-review`) pull it in automatically for style, convention, or security guidance.
+
+- `coding` — Disciplined coding workflow: scan the codebase, ask before assuming, propose alternatives for non-trivial decisions, plan tasks in a committable checklist, execute against `standards`, and wrap up with review. User-invoked only. Structure and core principles adapted from ValentinKolb/skills' `coding-workflow` (MIT; see `THIRD_PARTY_NOTICES.md`).
 
 ### Legal skills
 
@@ -39,7 +45,7 @@ bunx skills add Argimlas/skills
   ```sh
   bunx skills add ValentinKolb/skills
   ```
-  `coding-workflow` uses Dex for task tracking. Install Dex and its skill as well:
+  Its `coding-workflow` covers the same ground as this repo's own `coding` skill — `coding` is in fact adapted from it (see `THIRD_PARTY_NOTICES.md`). Install one or the other, not both. `coding-workflow` uses Dex for task tracking; `coding` uses a plain markdown checklist instead, so only add Dex if you go with Valentin's version:
   ```sh
   bun add -g @zeeg/dex
   bunx skills add dcramer/dex
