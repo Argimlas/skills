@@ -1,6 +1,6 @@
 # Argimlas skills
 
-Personal agent skills for learning-focused coding assistance.
+Personal agent skills for disciplined coding, learning-focused assistance, and German legal-document generation (Datenschutzerklärung, Impressum, cookie banners).
 
 ## Install
 
@@ -10,9 +10,11 @@ bunx skills add Argimlas/skills
 
 ## Skills
 
+### Learning skills
+
 - `learn` — Collaborative learning mode. Guides you through concepts with a four-level hint ladder instead of solving problems outright. If a learner profile exists at `~/.learn-profile.md`, it uses that to tailor explanations to your background and assumes you're unfamiliar with anything not mentioned. Additional behaviors: reads files proactively after you say "done", suggests pseudocode before logic-heavy tasks, and does a quick sanity check after you mark something working.
 
-  > **Note on skill priority:** When active, `learn` takes priority over interaction style — it controls how much gets revealed and at which level. Other skills (e.g. best-practices or coding workflow) still contribute domain knowledge; `learn` just controls the delivery. To avoid suppressing other skills in sessions where you don't want learning mode, the skill asks at the start of each session whether it should be active.
+  > **Note on skill priority:** When active, `learn` takes priority over interaction style — it controls how much gets revealed and at which level. Other skills (e.g. `standards` or `coding`) still contribute domain knowledge; `learn` just controls the delivery. To avoid suppressing other skills in sessions where you don't want learning mode, the skill asks at the start of each session whether it should be active.
 
 - `setup-learner` — One-time setup skill. Interviews you with a few questions and writes a personalized learner profile to `~/.learn-profile.md`. Run this once; the `learn` skill picks it up automatically in any future session.
 
