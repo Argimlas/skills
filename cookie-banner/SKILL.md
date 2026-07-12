@@ -28,9 +28,10 @@ project actually does — nothing more.
 
 The user points you at a project and a place to add the banner ("add a cookie
 banner here"). Your job is to add the **legal content, layout, and consent
-logic**. Split the responsibility cleanly: the banner's *position, size, and
-responsiveness* are this skill's to own; its *colors, typography, and button
-shapes* belong to the project.
+logic**. Split the responsibility cleanly: the banner's *position and size*
+are this skill's to own — responsive behavior across viewport widths follows
+the `standards` skill's baseline, applied here; its *colors, typography, and
+button shapes* belong to the project.
 
 **Look — inherit, never invent:**
 - Reuse the site's existing components, classes, and design tokens for color,
@@ -44,16 +45,17 @@ shapes* belong to the project.
   instruction later in this skill; do not restate its rationale elsewhere, just
   apply it.
 
-**Layout — own it, make it responsive:**
+**Layout — own it:**
 - The banner is a centered, width-capped bar or panel — never edge-to-edge on
-  wide screens.
-  - Desktop / tablet (≥640px): centered horizontally, `max-width` in the
-    560–720px range (match the site's existing container/modal width if one
-    exists), fixed or sticky near the bottom of the viewport, comfortable
-    padding.
-  - Mobile (<640px): full width minus small side margins (e.g. `1rem`);
-    buttons stack vertically if a row of them no longer fits; add
-    `env(safe-area-inset-bottom)` padding so the banner clears device home-bars.
+  wide screens: centered horizontally, `max-width` in the 560–720px range
+  (match the site's existing container/modal width if one exists), fixed or
+  sticky near the bottom of the viewport, comfortable padding.
+- Apply the `standards` skill's responsive-by-default requirement to this
+  layout — check it at mobile, tablet, and desktop widths before calling it
+  done. Specific to this banner: full width minus small side margins (e.g.
+  `1rem`) on narrow viewports; buttons stack vertically if a row of them no
+  longer fits; add `env(safe-area-inset-bottom)` padding so the banner clears
+  device home-bars.
 - This layout CSS (`position`, `max-width`, `margin`, `padding`, `display:
   flex`/`grid`, media queries) is the one exception to "no new CSS" — write it
   in a small scoped `<style>` block or CSS module. Never put color,
