@@ -28,7 +28,7 @@ bunx skills add Argimlas/skills
 
 - `standards` — Coding standards and conventions: stack defaults (bun), KISS/YAGNI/DRY/Zen, patterns, comments, responsive UI, a starter security baseline, and commit-message convention. Model-invoked, so other skills (including `code-review`) pull it in automatically for style, convention, or security guidance.
 
-- `coding` — Disciplined coding workflow: scan the codebase, ask before assuming, propose alternatives for non-trivial decisions, plan tasks in a committable checklist, execute against `standards`, and wrap up with review. User-invoked only. Structure and core principles adapted from ValentinKolb/skills' `coding-workflow` (MIT; see `THIRD_PARTY_NOTICES.md`).
+- `coding` — Disciplined coding workflow: scan the codebase, ask before assuming, propose alternatives for non-trivial decisions, plan tasks in a markdown checklist, execute against `standards`, and wrap up with review. User-invoked only. Structure and core principles adapted from ValentinKolb/skills' `coding-workflow` (MIT; see `THIRD_PARTY_NOTICES.md`).
 
 ### Legal skills
 

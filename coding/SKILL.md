@@ -2,7 +2,7 @@
 name: coding
 description: >
   My personal disciplined coding workflow - scan the codebase, propose
-  alternatives, plan tasks in a committable markdown file, execute against
+  alternatives, plan tasks in a markdown checklist, execute against
   standards, and wrap up with review. Invoke by name when starting
   non-trivial code work.
 disable-model-invocation: true
@@ -32,10 +32,11 @@ you commit it yourself?"* Don't ask again this chat once answered, even
 across multiple tasks.
 
 This choice governs only who writes the commit in Phase 4 onward — pushing
-stays the user's call in both modes, never yours. Phases 0-3 — Scan,
-Propose, Task Plan — always run in full and always stop for the user's
-input, in both modes; autonomous never means skipping ahead without
-checking in.
+stays the user's call in both modes, never yours. Phases 0-2 — Scan,
+Propose — always run in full and always stop for the user's input, in both
+modes; autonomous never means skipping ahead without checking in. Phase 3
+follows the same rule, except when Phase 2 already decided the task is
+small enough to skip it (see below).
 
 ## Phase 2 — Understand & Propose
 
@@ -45,9 +46,13 @@ ask. Treat this as a back-and-forth: a rough idea rarely resolves in one
 round, so let each answer surface the next question until the shape of the
 task is clear.
 
-If the task is small and bounded — a one-line fix, a rename, a single
-obvious change — state the approach and why, then move on. Reserve the full
-comparison below for decisions that are actually open.
+If the task is small and bounded — roughly up to 5 changes, nothing that
+forks into a real architectural decision — state the approach and why, skip
+the full comparison below and Phase 3's task-plan file, and move straight to
+Phase 4 once you have the go-ahead. Where exactly "small" ends is your
+judgment call, weighed by how much the change branches, not by a literal
+count. Reserve the full comparison and task plan for decisions that are
+actually open or that span more ground than that.
 
 Otherwise, present **3 genuinely different approaches**, not variations of
 one idea. Each: 3-6 bullets — core idea, tradeoffs, main pitfalls. End with
@@ -58,12 +63,16 @@ proceed with your recommendation.
 
 ## Phase 3 — Task Plan
 
+Skip this phase entirely for small bounded tasks — Phase 2 already made
+that call, so go straight to Phase 4 once you have the go-ahead.
+
 Turn the chosen approach into a `.coding-tasks.md` checklist (repo
 root, unless the user says otherwise) — concrete, verifiable steps, each
-with a success criterion. Write it as an actual file with the Write tool and
-commit it: it's what lets the user resume the same work from a different
-device. The in-chat task tracker doesn't survive a session end or a device
-switch — it's not a substitute for this file.
+with a success criterion. Write it as an actual file with the Write tool —
+it's what lets the user resume the same work from a different device. The
+in-chat task tracker doesn't survive a session end or a device switch — it's
+not a substitute for this file. Leave it uncommitted for now: committing it
+is the user's call at wrap-up (Phase 5), not something to do on creation.
 
 **Done when:** a senior engineer could predict the diff from the checklist
 alone.
@@ -92,6 +101,8 @@ Work through `.coding-tasks.md` top to bottom.
   `main`/`master`. Commit after each completed task or cluster; don't push.
 - **Manual mode:** at that same point, call `caveman-commit` to produce the
   message, hand it to the user, let them commit and push themselves.
+- Every commit, either mode, is authored as the user alone — never add a
+  Co-Authored-By trailer or any other credit line for Claude/Anthropic.
 
 On a failed test/build or an unexpected error: read the error, form one
 hypothesis, test it with the smallest change. If wrong, try a genuinely
@@ -113,8 +124,10 @@ untouched, and anything else worth flagging.
 one consolidated list here — this is the user's checkpoint before they
 decide to push. Pushing is never yours to do, in either mode.
 
-Delete `.coding-tasks.md` once every task is checked — it served
-its purpose, git history is the record now.
+If every task in `.coding-tasks.md` is checked, delete it — it served its
+purpose, git history is the record now, and it never needed a commit of its
+own. If open tasks remain, leave the file in place, uncommitted; committing
+it for cross-device continuity is the user's call to make manually.
 
 **Done when:** the review — and, in autonomous mode, the consolidated
 checklist — has been posted.
